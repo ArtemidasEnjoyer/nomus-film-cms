@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #0f172a; /* Darker Slate for high contrast */
+  --text-secondary: #475569; /* Medium Slate for secondary info */
+  --color-accent: #2e7a3d; /* Darker green for light mode contrast */
+  --color-secondary: #c5a880;
+}
+
+/* Ensure dark mode has distinct colors */
+.dark {
+  --bg-primary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --color-accent: #b5e0a7; /* Original pastel green for dark mode */
+}
+
+/* Global smooth transition */
+* {
+  transition: background-color 0.4s ease-in-out, border-color 0.4s ease-in-out, color 0.2s ease-in-out;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Markdown Image Polish */
+.prose img {
+  @apply mx-auto block rounded-[2rem] shadow-lg border border-brown/5;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-calligraphy {
+  font-family: 'Dancing Script', cursive;
+}

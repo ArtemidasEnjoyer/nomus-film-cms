@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1776336000000",
+    "type": "portfolio",
+    "title": "Il Domatore",
+    "date": "2024-04-16",
+    "excerpt": "Un viaggio psicologico nel cuore dell'addestramento, sviluppato in collaborazione con Newness e Groenlandia.",
+    "content": "# Il Domatore\n\n**Il Domatore** è un lungometraggio drammatico che esplora i confini tra controllo e istinto.",
+    "category": "Direction",
+    "image": "/assets/portfolio/NomusPortfolio-001.jpg"
+  },
+  {
+    "id": "1776336100000",
+    "type": "portfolio",
+    "title": "Bodycount",
+    "date": "2025-01-10",
+    "excerpt": "La serie TV teen drama vincitrice del Premio Mattador 2025. Un racconto crudo e onesto sulla Generazione Z.",
+    "content": "# Bodycount\n\nScritta da **Vinci Cardona**, *Bodycount* è stata insignita del prestigioso **Premio Mattador 2025**.",
+    "category": "Scriptwriting",
+    "image": "/assets/portfolio/NomusPortfolio-005.jpg"
+  },
+  {
+    "id": "1776336200000",
+    "type": "portfolio",
+    "title": "Young Stalin",
+    "date": "2024-11-20",
+    "excerpt": "Nicolò Sanfilippo come Associate Producer e Script Editor per il nuovo biopic diretto da Gela Babluani.",
+    "content": "# Young Stalin\n\nUn'importante coproduzione internazionale che vede **Nicolò Sanfilippo** nel ruolo di Associate Producer.",
+    "category": "Production",
+    "image": "/assets/portfolio/NomusPortfolio-024.jpg"
+  },
+  {
+    "id": "1776336500000",
+    "type": "portfolio",
+    "title": "Strangers",
+    "date": "2024-08-12",
+    "excerpt": "Sviluppo sceneggiatura per Colorado Films. Una storia di incontri casuali e destini incrociati.",
+    "content": "# Strangers\n\nProgetto di lungometraggio in fase di sviluppo per **Colorado Films**. La narrazione si concentra sulla natura effimera dei rapporti umani nelle metropoli moderne.",
+    "category": "Scriptwriting",
+    "image": "/assets/portfolio/NomusPortfolio-003.jpg"
+  },
+  {
+    "id": "1776336600000",
+    "type": "portfolio",
+    "title": "La Voce del Mare",
+    "date": "2025-02-05",
+    "excerpt": "Documentario poetico sulle coste liguri. Un'esplorazione visiva del rapporto tra uomo e acqua.",
+    "content": "# La Voce del Mare\n\nUn'opera visiva che cattura la bellezza cruda del Mar Ligure attraverso l'uso della luce naturale.",
+    "category": "Cinematography",
+    "image": "/assets/portfolio/NomusPortfolio-007.jpg"
+  },
+  {
+    "id": "1776336700000",
+    "type": "portfolio",
+    "title": "Genova Noir",
+    "date": "2024-12-01",
+    "excerpt": "Serie antologica poliziesca ambientata nei vicoli storici di Genova.",
+    "content": "# Genova Noir\n\nLe ombre dei caruggi diventano protagoniste in questa serie che reinterpreta il genere poliziesco italiano.",
+    "category": "Production",
+    "image": "/assets/portfolio/NomusPortfolio-009.jpg"
+  },
+  {
+    "id": "1776336800000",
+    "type": "portfolio",
+    "title": "Frammenti di Luce",
+    "date": "2025-03-20",
+    "excerpt": "Sperimentazione visiva sulla rifrazione e il colore nel cinema contemporaneo.",
+    "content": "# Frammenti di Luce\n\nUno studio tecnico ed estetico sulla manipolazione della luce in camera.",
+    "category": "Cinematography",
+    "image": "/assets/portfolio/NomusPortfolio-011.jpg"
+  },
+  {
+    "id": "1776336900000",
+    "type": "portfolio",
+    "title": "L'Ultima Scena",
+    "date": "2024-10-15",
+    "excerpt": "Cortometraggio drammatico. Il confine tra realtà e finzione sul set cinematografico.",
+    "content": "# L'Ultima Scena\n\nCosa succede quando la vita privata di un attore collide con il ruolo che sta interpretando?",
+    "category": "Direction",
+    "image": "/assets/portfolio/NomusPortfolio-013.jpg"
+  },
+  {
+    "id": "1776337000000",
+    "type": "portfolio",
+    "title": "Orizzonti Infiniti",
+    "date": "2025-04-01",
+    "excerpt": "Collaborazione internazionale per lo sviluppo di concept sci-fi.",
+    "content": "# Orizzonti Infiniti\n\nEsplorando il futuro attraverso il world-building e lo sviluppo di nuove IP.",
+    "category": "Scriptwriting",
+    "image": "/assets/portfolio/NomusPortfolio-015.jpg"
+  },
+  {
+    "id": "1776336300000",
+    "type": "news",
+    "title": "Nomus a Londra: Nuovi Orizzonti",
+    "date": "2026-04-10",
+    "excerpt": "Studio Nomus consolida la partnership con F.&.M.E. Ltd.",
+    "content": "# Espansione Internazionale",
+    "category": "Production",
+    "image": "/assets/portfolio/NomusPortfolio-011.jpg"
+  },
+  {
+    "id": "1776336400000",
+    "type": "news",
+    "title": "Laboratorio di Scrittura 2026",
+    "date": "2026-04-15",
+    "excerpt": "Aperte le iscrizioni per le nuove masterclass di sceneggiatura.",
+    "content": "# Masterclass Studio Nomus",
+    "category": "Direction",
+    "image": "/assets/portfolio/NomusPortfolio-015.jpg"
+  }
+]
