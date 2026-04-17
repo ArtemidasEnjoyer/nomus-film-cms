@@ -18,14 +18,14 @@ export function Contact() {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 opacity-0 animate-fade-in-up-delay-2">
         {/* Email Link */}
         <a 
-          href="mailto:info@nomusfilm.com" 
+          href="mailto:info@nomus.film" 
           class="group flex flex-col items-center justify-center p-16 bg-[var(--bg-primary)] border border-brown/10 rounded-[3rem] shadow-xl hover:shadow-[0_0_30px_rgba(181,224,167,0.2)] hover:border-pastelGreen/50 transition-all duration-500 hover:-translate-y-2"
         >
           <span class="text-5xl mb-6 group-hover:scale-125 transition-transform duration-500">✉️</span>
           <h3 class="text-2xl font-serif font-bold text-[var(--text-primary)] mb-2 group-hover:text-pastelGreen transition-colors duration-500">
             {t.emailLabel}
           </h3>
-          <p class="text-[var(--text-secondary)] font-light">info@nomusfilm.com</p>
+          <p class="text-[var(--text-secondary)] font-light">info@nomus.film</p>
         </a>
 
         {/* Instagram Link */}
