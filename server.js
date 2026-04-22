@@ -34,7 +34,12 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: /uploads/ /assets/;"
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: /uploads/ /assets/ https://nomus-film-cms.onrender.com; " +
+    "connect-src 'self' https://nomus-film-cms.onrender.com;"
   );
   next();
 });
