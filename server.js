@@ -15,9 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
+const DIST_DIR = path.join(__dirname, 'dist');
 const DB_FILE = path.join(DATA_DIR, 'database.sqlite');
 const DEFAULT_PASSWORD = crypto.randomBytes(8).toString('hex');
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
@@ -28,7 +29,20 @@ if (!process.env.JWT_SECRET) {
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(bodyParser.json());
+
+// Set basic security headers including a working CSP
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: /uploads/ /assets/;"
+  );
+  next();
+});
+
+// Serve static files from Vite build
+app.use(express.static(DIST_DIR));
 app.use('/uploads', express.static(UPLOADS_DIR));
+app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')));
 
 // Initialize everything synchronously
 fs.ensureDirSync(DATA_DIR);
@@ -218,6 +232,14 @@ app.delete('/api/articles/:id', authenticate, (req, res) => {
   const result = db.prepare('DELETE FROM articles WHERE id = ?').run(id);
   if (result.changes === 0) return res.status(404).json({ error: 'Article not found' });
   res.json({ success: true });
+});
+
+// SPA fallback: Serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Not Found' });
+  }
+  res.sendFile(path.join(DIST_DIR, 'index.html'));
 });
 
 // Global Error Handler Middleware
