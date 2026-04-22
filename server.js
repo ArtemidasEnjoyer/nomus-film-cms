@@ -240,7 +240,7 @@ app.delete('/api/articles/:id', authenticate, (req, res) => {
 });
 
 // SPA fallback: Serve index.html for all non-API routes
-app.get('*', (req, res) => {
+app.get('*any', (req, res) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({ error: 'Not Found' });
   }
