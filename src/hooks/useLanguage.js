@@ -102,7 +102,9 @@ const translations = {
     emailLabel: 'Email Us',
     instagramLabel: 'Follow on Instagram',
     phoneLabel: 'Call Us',
-    whatsappLabel: 'WhatsApp'
+    whatsappLabel: 'WhatsApp',
+    partnersTitle: 'Our Partners',
+    partnerType: 'Partner'
   },
   IT: {
     home: 'Home',
@@ -195,7 +197,9 @@ const translations = {
     emailLabel: 'Scrivici',
     instagramLabel: 'Seguici su Instagram',
     phoneLabel: 'Chiamaci',
-    whatsappLabel: 'WhatsApp'
+    whatsappLabel: 'WhatsApp',
+    partnersTitle: 'I Nostri Partner',
+    partnerType: 'Partner'
   }
 };
 

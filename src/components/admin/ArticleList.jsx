@@ -33,7 +33,10 @@ export function ArticleList({ articles, deleteArticle, handleEdit }) {
           <span class="absolute left-4 top-1/2 -translate-y-1/2 opacity-30 text-xl">🔍</span>
         </div>
         <select value={filterType} onChange={(e) => setFilterType(e.target.value)} class="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-brown/10 font-bold text-sm text-[var(--text-primary)]">
-          <option value="all">{t.allTypes}</option><option value="news">{t.articles}</option><option value="portfolio">{t.portfolio}</option>
+          <option value="all">{t.allTypes}</option>
+          <option value="news">{t.articles}</option>
+          <option value="portfolio">{t.portfolio}</option>
+          <option value="partner">{t.partnerType}</option>
         </select>
         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} class="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-brown/10 font-bold text-sm text-[var(--text-primary)]">
           <option value="newest">{t.newest}</option><option value="oldest">{t.oldest}</option><option value="title">{t.byTitle}</option>
@@ -47,7 +50,11 @@ export function ArticleList({ articles, deleteArticle, handleEdit }) {
               <div>
                 <h3 class="font-bold text-xl font-serif text-[var(--text-primary)]">{a.title}</h3>
                 <div class="flex items-center gap-2 mt-1">
-                  <span class={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase ${a.type === 'portfolio' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>{a.type}</span>
+                  <span class={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase ${
+                    a.type === 'portfolio' ? 'bg-purple-100 text-purple-600' : 
+                    a.type === 'partner' ? 'bg-green-100 text-green-600' :
+                    'bg-blue-100 text-blue-600'
+                  }`}>{a.type}</span>
                   <span class="text-[9px] font-black uppercase text-pastelGreen opacity-60">{a.category}</span>
                 </div>
               </div>
