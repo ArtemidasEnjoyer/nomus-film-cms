@@ -100,7 +100,9 @@ const translations = {
     contactTitle: 'Get in Touch',
     contactDesc: "Ready to tell your story? Reach out and let's create something extraordinary together.",
     emailLabel: 'Email Us',
-    instagramLabel: 'Follow on Instagram'
+    instagramLabel: 'Follow on Instagram',
+    phoneLabel: 'Call Us',
+    whatsappLabel: 'WhatsApp'
   },
   IT: {
     home: 'Home',
@@ -191,7 +193,9 @@ const translations = {
     contactTitle: 'Mettiti in Contatto',
     contactDesc: "Pronto a raccontare la tua storia? Scrivici e creiamo insieme qualcosa di straordinario.",
     emailLabel: 'Scrivici',
-    instagramLabel: 'Seguici su Instagram'
+    instagramLabel: 'Seguici su Instagram',
+    phoneLabel: 'Chiamaci',
+    whatsappLabel: 'WhatsApp'
   }
 };
 
