@@ -10,11 +10,44 @@ import jwt from 'jsonwebtoken';
 import { DatabaseSync } from 'node:sqlite';
 import { z } from 'zod';
 import crypto from 'crypto';
+import helmet from 'helmet';
+import { rateLimit } from 'express-rate-limit';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
+// Security: Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // limit each IP to 10 login attempts per hour
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many login attempts, please try again later.' }
+});
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "/uploads/", "/assets/", "https://nomus-film-cms.onrender.com", "https://images.unsplash.com"],
+      connectSrc: ["'self'", "https://nomus-film-cms.onrender.com"],
+    },
+  },
+}));
+
 const PORT = process.env.PORT || 3001;
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
@@ -29,20 +62,7 @@ if (!process.env.JWT_SECRET) {
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(bodyParser.json());
-
-// Set basic security headers including a working CSP
-app.use((req, res, next) => {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-    "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: /uploads/ /assets/ https://nomus-film-cms.onrender.com; " +
-    "connect-src 'self' https://nomus-film-cms.onrender.com;"
-  );
-  next();
-});
+app.use('/api/', limiter);
 
 // Serve static files from Vite build
 app.use(express.static(DIST_DIR));
@@ -156,7 +176,7 @@ app.get('/api/auth/status', (req, res) => {
   res.json({ setup: authData.setup });
 });
 
-app.post('/api/auth/login', validate(authSchema), async (req, res) => {
+app.post('/api/auth/login', authLimiter, validate(authSchema), async (req, res) => {
   const { username, password } = req.body;
   const authData = getAuthData();
   
@@ -176,7 +196,7 @@ app.post('/api/auth/login', validate(authSchema), async (req, res) => {
   res.status(401).json({ error: 'Invalid credentials' });
 });
 
-app.post('/api/auth/setup', authenticate, validate(setupSchema), async (req, res) => {
+app.post('/api/auth/setup', authLimiter, authenticate, validate(setupSchema), async (req, res) => {
   const { username, password } = req.body;
   
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -246,7 +266,7 @@ app.delete('/api/articles/:id', authenticate, (req, res) => {
 });
 
 // SPA fallback: Serve index.html for all non-API routes
-app.get('*any', (req, res) => {
+app.get('*', (req, res) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({ error: 'Not Found' });
   }
