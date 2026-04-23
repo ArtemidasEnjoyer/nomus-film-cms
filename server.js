@@ -69,6 +69,12 @@ db.exec(`
   );
 `);
 
+// Support for remote admin reset via Environment Variable
+if (process.env.RESET_ADMIN === 'true') {
+  db.prepare('UPDATE auth SET setup = 0 WHERE id = 1').run();
+  console.log('[SECURITY] Admin account reset triggered by RESET_ADMIN environment variable.');
+}
+
 // Initialize Auth
 const getAuthData = () => {
   let authData = db.prepare('SELECT * FROM auth WHERE id = 1').get();
