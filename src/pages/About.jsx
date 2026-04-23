@@ -104,8 +104,9 @@ export function About() {
           
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
             {partners.map((partner, idx) => (
-              <div 
+              <a 
                 key={partner.id} 
+                href={`/articles/${partner.id}`}
                 class="group relative bg-white dark:bg-gray-800 border border-brown/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center space-y-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
@@ -117,7 +118,8 @@ export function About() {
                   />
                 </div>
                 <h3 class="text-lg font-serif font-bold text-[var(--text-primary)] group-hover:text-pastelGreen transition-colors">{partner.title}</h3>
-              </div>
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-pastelGreen opacity-0 group-hover:opacity-100 transition-opacity">Read Story</span>
+              </a>
             ))}
           </div>
         </section>
