@@ -38,6 +38,11 @@ export function useArticles() {
         method: 'DELETE',
         headers: getAuthHeader()
       });
+      if (res.status === 401) {
+        localStorage.removeItem('admin_token');
+        window.location.reload();
+        return false;
+      }
       if (!res.ok) throw new Error('Delete failed');
       return true;
     } catch (err) {
@@ -60,6 +65,12 @@ export function useArticles() {
         },
         body: JSON.stringify(articleData)
       });
+      
+      if (res.status === 401) {
+        localStorage.removeItem('admin_token');
+        window.location.reload(); // Force re-auth
+        return false;
+      }
       
       if (res.ok) {
         await fetchArticles();
