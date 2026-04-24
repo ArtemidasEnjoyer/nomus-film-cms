@@ -142,7 +142,7 @@ const articleSchema = z.object({
   content: z.string().optional(),
   category: z.string().min(1, 'Category is required'),
   image: z.string().optional(),
-  type: z.enum(['news', 'portfolio', 'partner', 'none']).default('news')
+  type: z.enum(['news', 'portfolio', 'partner']).default('news')
 });
 
 // Middleware: Authenticate
