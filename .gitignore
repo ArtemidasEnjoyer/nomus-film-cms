@@ -28,3 +28,4 @@ dist-ssr/
 *.ppm
 *.pbm
 data/*.sqlite
+skill.md
