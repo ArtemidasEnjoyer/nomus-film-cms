@@ -41,13 +41,13 @@ export function Portfolio() {
 
   // Helper to determine aspect ratio based on index for a "Gallery" feel
   const getAspectRatio = (index) => {
-    const ratios = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]'];
+    const ratios = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]', 'aspect-[2/3]'];
     return ratios[index % ratios.length];
   };
 
   return (
     <div class="max-w-7xl mx-auto px-4 py-24 space-y-24">
-      <div class="text-center space-y-4">
+      <div class="text-center space-y-4 animate-fade-in-up">
         <h1 class="text-7xl md:text-9xl font-black font-serif tracking-tighter text-[var(--text-primary)]">{t.portfolioPageTitle}</h1>
         <p class="font-calligraphy text-4xl text-pastelGreen opacity-80">{t.portfolioPageSubtitle}</p>
       </div>
@@ -61,11 +61,12 @@ export function Portfolio() {
               class="portfolio-animate opacity-0 translate-y-10 transition-all duration-1000 group block break-inside-avoid relative overflow-hidden rounded-[2.5rem] border border-brown/10 shadow-sm hover:shadow-2xl"
               style={{ transitionDelay: `${(i % 3) * 150}ms` }}
             >
-              <div class={`${getAspectRatio(i)} overflow-hidden`}>
+              <div class={`${getAspectRatio(i)} overflow-hidden bg-brown/5`}>
                 <img 
-                  src={item.image} 
+                  src={item.image || '/assets/logo.jpg'} 
                   class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" 
                   alt={item.title}
+                  loading="lazy"
                 />
               </div>
               
@@ -82,8 +83,15 @@ export function Portfolio() {
           ))}
         </div>
       ) : (
-        <div class="py-40 text-center italic opacity-30 text-2xl font-serif text-[var(--text-primary)]">
-          {t.portfolioEmpty}
+        <div class="py-40 text-center space-y-8 animate-fade-in-up">
+          <p class="italic opacity-30 text-2xl font-serif text-[var(--text-primary)]">
+            {t.portfolioEmpty}
+          </p>
+          <div class="flex justify-center gap-6 opacity-20">
+             {[1,2,3].map(i => (
+               <div key={i} class="w-32 h-40 bg-brown/10 rounded-2xl animate-pulse" style={{ animationDelay: `${i*0.2}s` }}></div>
+             ))}
+          </div>
         </div>
       )}
     </div>

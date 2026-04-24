@@ -30,8 +30,8 @@ export function Home() {
     };
   }, []);
 
-  // Filter top 3 recent
-  const recentNews = articles.value.slice(0, 3);
+  // Filter top 3 recent news
+  const recentNews = articles.value.filter(a => a.type === 'news').slice(0, 3);
 
   return (
     <div class="space-y-32 pb-20">

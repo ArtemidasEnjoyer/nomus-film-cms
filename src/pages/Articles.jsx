@@ -7,8 +7,11 @@ export function Articles() {
   const { articles, loading } = useArticles();
   const observerRef = useRef(null);
 
+  // Filter only news articles
+  const newsArticles = articles.value.filter(a => a.type === 'news');
+
   useEffect(() => {
-    if (articles.value.length > 0) {
+    if (newsArticles.length > 0) {
       observerRef.current = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -24,7 +27,7 @@ export function Articles() {
 
       return () => observerRef.current.disconnect();
     }
-  }, [articles.value]);
+  }, [newsArticles]);
 
   if (loading.value) {
     return (
@@ -44,13 +47,14 @@ export function Articles() {
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {articles.value.map((article, i) => (
+        {newsArticles.map((article, i) => (
           <article 
+            key={article.id}
             class="article-animate opacity-0 -translate-x-10 transition-all duration-700 ease-out flex flex-col md:flex-row gap-8 group"
             style={{ transitionDelay: `${i * 100}ms` }}
           >
             <div class="w-full md:w-1/2 aspect-[4/3] overflow-hidden rounded-3xl border border-brown/5">
-              <img src={article.image} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <img src={article.image} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={article.title} />
             </div>
             <div class="w-full md:w-1/2 flex flex-col justify-center">
               <div class="flex items-center gap-3 mb-4">
@@ -72,6 +76,11 @@ export function Articles() {
           </article>
         ))}
       </div>
+      {newsArticles.length === 0 && !loading.value && (
+        <div class="py-20 text-center italic opacity-30 text-xl font-serif">
+          No articles yet.
+        </div>
+      )}
     </div>
   );
 }

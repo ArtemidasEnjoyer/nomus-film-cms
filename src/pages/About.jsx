@@ -1,5 +1,6 @@
 import { useLanguage } from '../hooks/useLanguage';
 import { useArticles } from '../hooks/useArticles';
+import { Partners } from '../components/Partners';
 
 export function About() {
   const { t } = useLanguage();
@@ -11,7 +12,7 @@ export function About() {
     { 
       name: 'Nicolò Sanfilippo', 
       role: 'Director & Founder', 
-      img: '/assets/nicolo_sanfilipo.png',
+      img: '/assets/nicolo_sanfilippo.png',
       handle: '@sanfilipponicolo',
       link: 'https://www.instagram.com/sanfilipponicolo/',
       bio: t.bioNicolo
@@ -93,6 +94,9 @@ export function About() {
           ))}
         </div>
       </section>
+
+      {/* Partners Section */}
+      <Partners />
     </div>
   );
 }
