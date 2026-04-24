@@ -41,7 +41,7 @@ export function Home() {
           style={{ backgroundImage: 'url("/assets/portfolio/NomusPortfolio-024.jpg")' }}
         ></div>
         
-        <div class="relative z-10 text-center text-white px-4 space-y-6">
+        <div class="relative z-10 text-center text-white px-8 py-12 space-y-6 bg-black/40 backdrop-blur-sm rounded-3xl max-w-4xl mx-auto">
           <p class={`font-calligraphy text-3xl md:text-5xl text-pastelGreen transition-all duration-1000 delay-500 transform ${isLoaded ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             {t.heroTagline}
           </p>
