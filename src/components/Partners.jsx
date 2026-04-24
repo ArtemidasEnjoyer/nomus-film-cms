@@ -31,9 +31,11 @@ export function Partners() {
                 class="w-full h-full object-cover"
               />
             </div>
-            <div class="flex-1 text-left">
+            <div class="flex-1 text-left flex flex-col justify-center">
               <h3 class="text-xl font-serif font-bold text-[var(--text-primary)] group-hover:text-pastelGreen transition-colors leading-tight">{partner.title}</h3>
-              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-pastelGreen opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 inline-block duration-500">{t.readStory} →</span>
+              <div class="h-4"> {/* Spacer to prevent layout shift */}
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-pastelGreen opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0 inline-block duration-500">{t.readStory} →</span>
+              </div>
             </div>
           </a>
         ))}
