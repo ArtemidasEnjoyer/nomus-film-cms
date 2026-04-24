@@ -24,7 +24,7 @@ A minimalist, high-performance CMS for filmmakers and creative portfolios. Built
 ## 🛠 Tech Stack
 
 - **Frontend:** Preact, Tailwind CSS, @preact/signals
-- **Backend:** Node.js, Express 5.x, `node:sqlite` (Native)
+- **Backend:** Node.js, Express 5.x, PostgreSQL
 - **Validation:** Zod
 - **Security:** Bcryptjs, JSON Web Tokens
 
@@ -32,7 +32,8 @@ A minimalist, high-performance CMS for filmmakers and creative portfolios. Built
 
 ### Prerequisites
 
-- **Node.js v22.5.0 or higher** (required for native `node:sqlite`)
+- **Node.js v22.5.0 or higher**
+- **Docker & Docker Compose** (for local database)
 
 ### Installation
 
@@ -47,7 +48,20 @@ A minimalist, high-performance CMS for filmmakers and creative portfolios. Built
    npm install
    ```
 
-3. **Run the development server:**
+3. **Set up Local Database:**
+   Start the PostgreSQL container:
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Environment Variables:**
+   Create a `.env` file in the root directory (already provided with defaults for local dev):
+   ```env
+   DATABASE_URL=postgresql://user:password@localhost:5432/nomusfilm
+   JWT_SECRET=your_secret_key
+   ```
+
+5. **Run the development server:**
    ```bash
    npm run dev
    ```
