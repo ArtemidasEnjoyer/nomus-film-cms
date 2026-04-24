@@ -21,10 +21,10 @@ export function Partners() {
           <a 
             key={partner.id} 
             href={`/articles/${partner.id}`}
-            class="group relative bg-[var(--bg-primary)] border border-brown/10 rounded-[2.5rem] p-6 flex items-center gap-6 shadow-sm hover:shadow-xl hover:border-pastelGreen/30 transition-all duration-500 opacity-0 animate-fade-in-up"
+            class="group relative bg-[var(--bg-primary)] rounded-[2.5rem] p-6 flex items-center gap-6 shadow-sm hover:shadow-xl transition-all duration-500 opacity-0 animate-fade-in-up"
             style={{ animationDelay: `${idx * 0.1}s` }}
           >
-            <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden border-2 border-brown/5 grayscale group-hover:grayscale-0 transition-all duration-700 shadow-inner">
+            <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-inner">
               <img 
                 src={partner.image || '/assets/logo.jpg'} 
                 alt={partner.title} 
@@ -33,7 +33,7 @@ export function Partners() {
             </div>
             <div class="flex-1 text-left">
               <h3 class="text-xl font-serif font-bold text-[var(--text-primary)] group-hover:text-pastelGreen transition-colors leading-tight">{partner.title}</h3>
-              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-pastelGreen opacity-60 group-hover:opacity-100 transition-opacity">Read Story →</span>
+              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-pastelGreen opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 inline-block duration-500">{t.readStory} →</span>
             </div>
           </a>
         ))}

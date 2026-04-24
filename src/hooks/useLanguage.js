@@ -104,7 +104,8 @@ const translations = {
     phoneLabel: 'Call Us',
     whatsappLabel: 'WhatsApp',
     partnersTitle: 'Our Partners',
-    partnerType: 'Partner'
+    partnerType: 'Partner',
+    readStory: 'Read Story'
   },
   IT: {
     home: 'Home',
@@ -199,7 +200,8 @@ const translations = {
     phoneLabel: 'Chiamaci',
     whatsappLabel: 'WhatsApp',
     partnersTitle: 'I Nostri Partner',
-    partnerType: 'Partner'
+    partnerType: 'Partner',
+    readStory: 'Leggi la Storia'
   }
 };
 
