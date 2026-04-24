@@ -53,7 +53,7 @@ export function Articles() {
             class="article-animate opacity-0 -translate-x-10 transition-all duration-700 ease-out flex flex-col md:flex-row gap-8 group"
             style={{ transitionDelay: `${i * 100}ms` }}
           >
-            <div class="w-full md:w-1/2 aspect-[4/3] overflow-hidden rounded-3xl border border-brown/5">
+            <div class="w-full md:w-1/2 aspect-[4/3] overflow-hidden rounded-2xl border border-brown/5">
               <img src={article.image} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={article.title} />
             </div>
             <div class="w-full md:w-1/2 flex flex-col justify-center">

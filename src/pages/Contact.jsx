@@ -38,7 +38,7 @@ export function Contact() {
         <div class="grid grid-cols-1 gap-6">
           <a 
             href="mailto:info@nomus.film" 
-            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-[2rem] shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
+            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-2xl shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
           >
             <span class="text-3xl group-hover:scale-110 transition-transform">✉️</span>
             <div>
@@ -51,7 +51,7 @@ export function Contact() {
             href="https://www.instagram.com/nomusfilm/" 
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-[2rem] shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
+            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-2xl shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
           >
             <span class="text-3xl group-hover:scale-110 transition-transform">📸</span>
             <div>
@@ -62,7 +62,7 @@ export function Contact() {
 
           <a 
             href="tel:+390101234567" 
-            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-[2rem] shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
+            class="group flex items-center gap-8 p-8 bg-[var(--bg-primary)] border border-brown/10 rounded-2xl shadow-lg hover:shadow-xl hover:border-pastelGreen/50 transition-all duration-500"
           >
             <span class="text-3xl group-hover:scale-110 transition-transform">📞</span>
             <div>
@@ -73,7 +73,7 @@ export function Contact() {
         </div>
 
         {/* Contact Form */}
-        <div class="bg-[var(--bg-primary)] border border-brown/10 rounded-[3rem] p-10 shadow-xl">
+        <div class="bg-[var(--bg-primary)] border border-brown/10 rounded-2xl p-10 shadow-xl">
           <form onSubmit={handleSubmit} class="space-y-6">
             <div class="space-y-2">
               <label class="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">Name</label>
@@ -84,7 +84,7 @@ export function Contact() {
                 onInput={handleChange}
                 required
                 placeholder="Your name"
-                class="w-full bg-brown/5 border border-brown/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
+                class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
               />
             </div>
             <div class="space-y-2">
@@ -96,7 +96,7 @@ export function Contact() {
                 onInput={handleChange}
                 required
                 placeholder="your@email.com"
-                class="w-full bg-brown/5 border border-brown/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
+                class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
               />
             </div>
             <div class="space-y-2">
@@ -108,13 +108,13 @@ export function Contact() {
                 required
                 rows="4"
                 placeholder="Tell us about your project..."
-                class="w-full bg-brown/5 border border-brown/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)] resize-none"
+                class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)] resize-none"
               ></textarea>
             </div>
             <button 
               type="submit" 
               disabled={status === 'sending'}
-              class={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all duration-500 ${
+              class={`w-full py-5 rounded-xl font-black uppercase tracking-[0.2em] text-xs transition-all duration-500 ${
                 status === 'success' 
                 ? 'bg-pastelGreen text-white' 
                 : 'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-pastelGreen'

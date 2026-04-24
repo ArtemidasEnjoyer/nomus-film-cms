@@ -21,7 +21,7 @@ export function Partners() {
           <a 
             key={partner.id} 
             href={`/articles/${partner.id}`}
-            class="group relative bg-[var(--bg-primary)] rounded-[2.5rem] p-6 flex items-center gap-6 shadow-sm hover:shadow-xl transition-all duration-500 opacity-0 animate-fade-in-up"
+            class="group relative bg-[var(--bg-primary)] rounded-2xl p-6 flex items-center gap-6 shadow-sm hover:shadow-xl transition-all duration-500 opacity-0 animate-fade-in-up"
             style={{ animationDelay: `${idx * 0.1}s` }}
           >
             <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-inner">

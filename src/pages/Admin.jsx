@@ -15,7 +15,7 @@ function DynamicPreview({ articleData, t }) {
   if (type === 'portfolio') {
     return (
       <div class="space-y-6">
-        <div class="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-brown/10 group shadow-lg bg-brown/5">
+        <div class="relative aspect-[3/4] overflow-hidden rounded-2xl border border-brown/10 group shadow-lg bg-brown/5">
           <img src={previewImage} class="w-full h-full object-cover" alt="Portfolio Preview" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
             <h3 class="text-2xl font-serif font-bold text-white leading-tight">{title || t.preview}</h3>
@@ -35,7 +35,7 @@ function DynamicPreview({ articleData, t }) {
   if (type === 'partner') {
     return (
       <div class="space-y-8">
-        <div class="bg-[var(--bg-primary)] rounded-[2.5rem] p-6 flex items-center gap-6 shadow-md border border-brown/10">
+        <div class="bg-[var(--bg-primary)] rounded-2xl p-6 flex items-center gap-6 shadow-md border border-brown/10">
           <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-inner bg-brown/5">
             <img src={previewImage} alt="Partner Preview" class="w-full h-full object-cover" />
           </div>
@@ -46,7 +46,7 @@ function DynamicPreview({ articleData, t }) {
         </div>
         <div class="px-6 space-y-4">
           <p class="text-sm text-[var(--text-secondary)] font-light leading-relaxed">{excerpt || 'Excerpt preview...'}</p>
-          <div class="text-xs prose prose-slate dark:prose-invert max-w-none bg-brown/5 p-6 rounded-3xl">
+          <div class="text-xs prose prose-slate dark:prose-invert max-w-none bg-brown/5 p-6 rounded-xl">
              <MarkdownViewer content={content || ''} />
           </div>
         </div>
@@ -57,7 +57,7 @@ function DynamicPreview({ articleData, t }) {
   // Default: News preview
   return (
     <div class="space-y-6">
-      <div class="aspect-video bg-gray-100 rounded-[2rem] overflow-hidden border border-brown/10 shadow-sm">
+      <div class="aspect-video bg-gray-100 rounded-2xl overflow-hidden border border-brown/10 shadow-sm">
         <img src={previewImage} class="w-full h-full object-cover" alt="News Preview" />
       </div>
       <div class="px-4 pb-4 space-y-4">
@@ -67,7 +67,7 @@ function DynamicPreview({ articleData, t }) {
         </div>
         <h3 class="font-bold text-2xl font-serif leading-tight text-[var(--text-primary)]">{title || t.preview}</h3>
         <p class="text-sm text-[var(--text-secondary)] font-light border-l-2 border-pastelGreen/30 pl-4">{excerpt || 'Excerpt preview...'}</p>
-        <div class="text-sm text-[var(--text-secondary)] mt-6 prose prose-slate dark:prose-invert prose-headings:font-serif prose-headings:font-black prose-a:text-pastelGreen prose-img:rounded-3xl prose-img:mx-auto prose-img:block max-w-none">
+        <div class="text-sm text-[var(--text-secondary)] mt-6 prose prose-slate dark:prose-invert prose-headings:font-serif prose-headings:font-black prose-a:text-pastelGreen prose-img:rounded-xl prose-img:mx-auto prose-img:block max-w-none">
           <MarkdownViewer content={content || ''} />
         </div>
       </div>
@@ -143,7 +143,7 @@ export function Admin() {
         </div>
 
         <div class="hidden lg:block space-y-6">
-          <div class="sticky top-28 border border-brown/10 rounded-[3rem] overflow-hidden bg-[var(--bg-primary)] shadow-2xl p-6 max-h-[85vh] overflow-y-auto">
+          <div class="sticky top-28 border border-brown/10 rounded-2xl overflow-hidden bg-[var(--bg-primary)] shadow-2xl p-6 max-h-[85vh] overflow-y-auto">
              <div class="flex items-center justify-between mb-8 pb-4 border-b border-brown/5">
                 <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-secondary)] opacity-40">Live Preview</span>
                 <span class="px-3 py-1 bg-pastelGreen/10 text-pastelGreen text-[10px] font-black uppercase tracking-widest rounded-full">{articleData.type}</span>

@@ -58,7 +58,7 @@ export function Portfolio() {
             <a 
               href={`/articles/${item.id}`} 
               key={item.id}
-              class="portfolio-animate opacity-0 translate-y-10 transition-all duration-1000 group block break-inside-avoid relative overflow-hidden rounded-[2.5rem] border border-brown/10 shadow-sm hover:shadow-2xl"
+              class="portfolio-animate opacity-0 translate-y-10 transition-all duration-1000 group block break-inside-avoid relative overflow-hidden rounded-2xl border border-brown/10 shadow-sm hover:shadow-2xl"
               style={{ transitionDelay: `${(i % 3) * 150}ms` }}
             >
               <div class={`${getAspectRatio(i)} overflow-hidden bg-brown/5`}>
@@ -89,7 +89,7 @@ export function Portfolio() {
           </p>
           <div class="flex justify-center gap-6 opacity-20">
              {[1,2,3].map(i => (
-               <div key={i} class="w-32 h-40 bg-brown/10 rounded-2xl animate-pulse" style={{ animationDelay: `${i*0.2}s` }}></div>
+               <div key={i} class="w-32 h-40 bg-brown/10 rounded-xl animate-pulse" style={{ animationDelay: `${i*0.2}s` }}></div>
              ))}
           </div>
         </div>

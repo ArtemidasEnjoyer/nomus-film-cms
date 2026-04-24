@@ -17,7 +17,7 @@ export function LoginForm() {
   };
 
   return (
-    <div class="max-w-md mx-auto mt-32 p-10 bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-brown/10 text-[var(--text-primary)] opacity-0 animate-fade-in-scale">
+    <div class="max-w-md mx-auto mt-32 p-10 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-brown/10 text-[var(--text-primary)] opacity-0 animate-fade-in-scale">
       <h1 class="text-3xl font-bold mb-8 text-center font-serif">{t.adminAccess}</h1>
       <form onSubmit={handleLogin} class="space-y-6">
         {isSetup.value && (
@@ -25,7 +25,7 @@ export function LoginForm() {
             type="text" 
             value={usernameInput} 
             onInput={(e) => setUsernameInput(e.target.value)} 
-            class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-brown/10 outline-none" 
+            class="w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-900 border border-brown/10 outline-none" 
             placeholder={t.username} 
           />
         )}
@@ -33,10 +33,10 @@ export function LoginForm() {
           type="password" 
           value={passwordInput} 
           onInput={(e) => setPasswordInput(e.target.value)} 
-          class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-brown/10 outline-none" 
+          class="w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-900 border border-brown/10 outline-none" 
           placeholder={isSetup.value ? t.password : t.defaultPassword} 
         />
-        <button class="w-full py-4 bg-pastelGreen text-gray-900 font-bold rounded-2xl">{t.unlock}</button>
+        <button class="w-full py-4 bg-pastelGreen text-gray-900 font-bold rounded-xl">{t.unlock}</button>
         {!isSetup.value && <p class="text-xs text-center opacity-60">{t.initialLoginDesc}</p>}
         {status && <p class="text-red-500 text-center text-sm font-bold">{status}</p>}
       </form>

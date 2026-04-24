@@ -45,24 +45,24 @@ export function About() {
                <h3 class="text-2xl font-serif font-bold text-[var(--text-primary)]">{t.servicesTitle}</h3>
                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
                  {services.map((s, idx) => (
-                   <li key={idx} class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest bg-brown/5 p-4 rounded-2xl border border-brown/5 opacity-0 animate-fade-in-up" style={{ animationDelay: `${0.3 + idx * 0.1}s` }}>
+                   <li key={idx} class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest bg-brown/5 p-4 rounded-xl border border-brown/5 opacity-0 animate-fade-in-up" style={{ animationDelay: `${0.3 + idx * 0.1}s` }}>
                      <span class="text-pastelGreen text-xl">✦</span> {s}
                    </li>
                  ))}
                </ul>
             </div>
 
-            <p class="italic border-l-4 border-pastelGreen pl-8 py-6 bg-brown/5 rounded-r-3xl font-serif text-2xl text-[var(--text-primary)] shadow-sm opacity-0 animate-fade-in-up-delay-2">
+            <p class="italic border-l-4 border-pastelGreen pl-8 py-6 bg-brown/5 rounded-r-2xl font-serif text-2xl text-[var(--text-primary)] shadow-sm opacity-0 animate-fade-in-up-delay-2">
               {t.storyQuote}
             </p>
           </div>
         </div>
         <div class="relative group opacity-0 animate-slide-in-right">
-          <div class="absolute inset-0 border-2 border-pastelGreen rounded-[3rem] translate-x-4 translate-y-4 -z-10 transition-transform group-hover:translate-x-6 group-hover:translate-y-6"></div>
+          <div class="absolute inset-0 border-2 border-pastelGreen rounded-3xl translate-x-4 translate-y-4 -z-10 transition-transform group-hover:translate-x-6 group-hover:translate-y-6"></div>
           <img 
             src="/assets/portfolio/NomusPortfolio-001.jpg" 
             alt="NomusFilm Cinematic Shot" 
-            class="rounded-[3rem] shadow-2xl object-cover w-full h-[800px] border border-brown/10"
+            class="rounded-3xl shadow-2xl object-cover w-full h-[800px] border border-brown/10"
           />
         </div>
       </section>
