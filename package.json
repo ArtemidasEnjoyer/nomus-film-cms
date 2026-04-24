@@ -1,7 +1,7 @@
 {
   "name": "NomusFilm",
   "private": true,
-  "version": "0.1.4-alpha",
+  "version": "0.1.5-alpha",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
@@ -23,6 +23,7 @@
     "jsonwebtoken": "^9.0.3",
     "marked": "^18.0.0",
     "multer": "^2.1.1",
+    "pg": "^8.13.1",
     "preact": "^10.19.2",
     "zod": "^4.3.6"
   },

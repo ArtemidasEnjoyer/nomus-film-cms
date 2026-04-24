@@ -7,7 +7,8 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { DatabaseSync } from 'node:sqlite';
+import pg from 'pg';
+const { Pool } = pg;
 import { z } from 'zod';
 import crypto from 'crypto';
 import helmet from 'helmet';
@@ -49,10 +50,8 @@ app.use(helmet({
 }));
 
 const PORT = process.env.PORT || 3001;
-const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 const DIST_DIR = path.join(__dirname, 'dist');
-const DB_FILE = path.join(DATA_DIR, 'database.sqlite');
 const DEFAULT_PASSWORD = crypto.randomBytes(8).toString('hex');
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
 
@@ -69,50 +68,64 @@ app.use(express.static(DIST_DIR));
 app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')));
 
-// Initialize everything synchronously
-fs.ensureDirSync(DATA_DIR);
+// Initialize directories
 fs.ensureDirSync(UPLOADS_DIR);
 
-const db = new DatabaseSync(DB_FILE);
+// PostgreSQL connection
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL?.includes('render.com') ? { rejectUnauthorized: false } : false
+});
 
 // Setup Database Schema
-db.exec(`
-  CREATE TABLE IF NOT EXISTS articles (
-    id TEXT PRIMARY KEY,
-    data TEXT
-  );
-  CREATE TABLE IF NOT EXISTS auth (
-    id INTEGER PRIMARY KEY,
-    setup INTEGER,
-    username TEXT,
-    password TEXT
-  );
-`);
+const initDB = async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS articles (
+        id TEXT PRIMARY KEY,
+        data JSONB
+      );
+      CREATE TABLE IF NOT EXISTS auth (
+        id SERIAL PRIMARY KEY,
+        setup BOOLEAN DEFAULT FALSE,
+        username TEXT,
+        password TEXT
+      );
+    `);
 
-// Support for remote admin reset via Environment Variable
-if (process.env.RESET_ADMIN === 'true') {
-  db.prepare('UPDATE auth SET setup = 0 WHERE id = 1').run();
-  console.log('[SECURITY] Admin account reset triggered by RESET_ADMIN environment variable.');
-}
+    // Support for remote admin reset via Environment Variable
+    if (process.env.RESET_ADMIN === 'true') {
+      await pool.query('UPDATE auth SET setup = FALSE WHERE id = 1');
+      console.log('[SECURITY] Admin account reset triggered by RESET_ADMIN environment variable.');
+    }
 
-// Initialize Auth
-const getAuthData = () => {
-  let authData = db.prepare('SELECT * FROM auth WHERE id = 1').get();
-  if (!authData) {
-    db.prepare('INSERT INTO auth (id, setup, username, password) VALUES (1, 0, ?, ?)').run('', DEFAULT_PASSWORD);
-    authData = db.prepare('SELECT * FROM auth WHERE id = 1').get();
+    // Initialize Auth
+    const res = await pool.query('SELECT * FROM auth WHERE id = 1');
+    let authData = res.rows[0];
+    
+    if (!authData) {
+      await pool.query('INSERT INTO auth (id, setup, username, password) VALUES (1, FALSE, $1, $2)', ['', DEFAULT_PASSWORD]);
+      const resRetry = await pool.query('SELECT * FROM auth WHERE id = 1');
+      authData = resRetry.rows[0];
+    }
+    
+    if (!authData.setup) {
+      console.log('\n=============================================');
+      console.log('[SECURITY] System needs setup.');
+      console.log(`[SECURITY] Temporary Admin Password: ${authData.password}`);
+      console.log('=============================================\n');
+    }
+  } catch (err) {
+    console.error('[DB Init Error]', err);
   }
-  
-  if (authData.setup === 0) {
-    console.log('\n=============================================');
-    console.log('[SECURITY] System needs setup.');
-    console.log(`[SECURITY] Temporary Admin Password: ${authData.password}`);
-    console.log('=============================================\n');
-  }
-  
-  return { ...authData, setup: authData.setup === 1 };
 };
-getAuthData();
+
+initDB();
+
+const getAuthData = async () => {
+  const res = await pool.query('SELECT * FROM auth WHERE id = 1');
+  return res.rows[0];
+};
 
 // Middleware: Validation
 const validate = (schema) => async (req, res, next) => {
@@ -146,14 +159,14 @@ const articleSchema = z.object({
 });
 
 // Middleware: Authenticate
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   
   const token = authHeader.split(' ')[1];
-  const authData = getAuthData();
+  const authData = await getAuthData();
 
   if (!authData.setup) {
     if (token === authData.password) return next();
@@ -169,16 +182,23 @@ const authenticate = (req, res, next) => {
 
 // --- API ROUTES ---
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ status: 'ok', db: 'connected' });
+  } catch (err) {
+    res.status(500).json({ status: 'error', db: err.message });
+  }
+});
 
-app.get('/api/auth/status', (req, res) => {
-  const authData = getAuthData();
-  res.json({ setup: authData.setup });
+app.get('/api/auth/status', async (req, res) => {
+  const authData = await getAuthData();
+  res.json({ setup: authData?.setup || false });
 });
 
 app.post('/api/auth/login', authLimiter, validate(authSchema), async (req, res) => {
   const { username, password } = req.body;
-  const authData = getAuthData();
+  const authData = await getAuthData();
   
   const inputPass = String(password).trim();
   const inputUser = String(username).trim();
@@ -200,7 +220,7 @@ app.post('/api/auth/setup', authLimiter, authenticate, validate(setupSchema), as
   const { username, password } = req.body;
   
   const hashedPassword = await bcrypt.hash(password, 10);
-  db.prepare('UPDATE auth SET setup = 1, username = ?, password = ? WHERE id = 1').run(username, hashedPassword);
+  await pool.query('UPDATE auth SET setup = TRUE, username = $1, password = $2 WHERE id = 1', [username, hashedPassword]);
   
   const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '24h' });
   res.json({ success: true, token });
@@ -224,45 +244,59 @@ const upload = multer({
 
 app.post('/api/upload', authenticate, (req, res, next) => {
   upload.single('image')(req, res, (err) => {
-    if (err) return next(err); // Pass Multer errors to Global Handler
+    if (err) return next(err); 
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
     res.json({ url: `/uploads/${req.file.filename}` });
   });
 });
 
-app.get('/api/articles', (req, res) => {
+app.get('/api/articles', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 100;
   const offset = (page - 1) * limit;
 
-  const rows = db.prepare('SELECT data FROM articles ORDER BY id DESC LIMIT ? OFFSET ?').all(limit, offset);
-  const data = rows.map(row => JSON.parse(row.data));
-  res.json(data);
+  try {
+    const result = await pool.query('SELECT data FROM articles ORDER BY id DESC LIMIT $1 OFFSET $2', [limit, offset]);
+    res.json(result.rows.map(row => row.data));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.post('/api/articles', authenticate, validate(articleSchema), (req, res) => {
+app.post('/api/articles', authenticate, validate(articleSchema), async (req, res) => {
   const id = String(Date.now());
   const newArticle = { id, ...req.body };
-  db.prepare('INSERT INTO articles (id, data) VALUES (?, ?)').run(id, JSON.stringify(newArticle));
-  res.status(201).json(newArticle);
+  try {
+    await pool.query('INSERT INTO articles (id, data) VALUES ($1, $2)', [id, newArticle]);
+    res.status(201).json(newArticle);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.put('/api/articles/:id', authenticate, validate(articleSchema), (req, res) => {
+app.put('/api/articles/:id', authenticate, validate(articleSchema), async (req, res) => {
   const { id } = req.params;
-  const row = db.prepare('SELECT data FROM articles WHERE id = ?').get(id);
-  if (!row) return res.status(404).json({ error: 'Article not found' });
-  
-  const currentArticle = JSON.parse(row.data);
-  const updatedArticle = { ...currentArticle, ...req.body };
-  db.prepare('UPDATE articles SET data = ? WHERE id = ?').run(JSON.stringify(updatedArticle), id);
-  res.json(updatedArticle);
+  try {
+    const checkRes = await pool.query('SELECT data FROM articles WHERE id = $1', [id]);
+    if (checkRes.rowCount === 0) return res.status(404).json({ error: 'Article not found' });
+    
+    const updatedArticle = { ...checkRes.rows[0].data, ...req.body };
+    await pool.query('UPDATE articles SET data = $1 WHERE id = $2', [updatedArticle, id]);
+    res.json(updatedArticle);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.delete('/api/articles/:id', authenticate, (req, res) => {
+app.delete('/api/articles/:id', authenticate, async (req, res) => {
   const { id } = req.params;
-  const result = db.prepare('DELETE FROM articles WHERE id = ?').run(id);
-  if (result.changes === 0) return res.status(404).json({ error: 'Article not found' });
-  res.json({ success: true });
+  try {
+    const result = await pool.query('DELETE FROM articles WHERE id = $1', [id]);
+    if (result.rowCount === 0) return res.status(404).json({ error: 'Article not found' });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // SPA fallback: Serve index.html for all non-API routes
@@ -274,7 +308,6 @@ app.get(/^(?!\/api).*/, (req, res) => {
 app.use((err, req, res, next) => {
   console.error('[Server Error]', err);
   
-  // Handle specific Multer errors
   if (err instanceof multer.MulterError) {
     if (err.code === 'LIMIT_FILE_SIZE') {
       return res.status(400).json({ error: 'File size exceeds the 5MB limit.' });
@@ -282,7 +315,6 @@ app.use((err, req, res, next) => {
     return res.status(400).json({ error: err.message });
   }
 
-  // Handle generic custom errors we explicitly passed from fileFilter
   if (err.message && err.message.includes('Invalid file type')) {
     return res.status(400).json({ error: err.message });
   }
