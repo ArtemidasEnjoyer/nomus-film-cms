@@ -76,14 +76,14 @@ export function Contact() {
         <div class="bg-[var(--bg-primary)] border border-brown/10 rounded-2xl p-10 shadow-xl">
           <form onSubmit={handleSubmit} class="space-y-6">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">Name</label>
+              <label class="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">{t.nameLabel}</label>
               <input 
                 type="text" 
                 name="name"
                 value={formData.name}
                 onInput={handleChange}
                 required
-                placeholder="Your name"
+                placeholder={t.namePlaceholder}
                 class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
               />
             </div>
@@ -95,19 +95,19 @@ export function Contact() {
                 value={formData.email}
                 onInput={handleChange}
                 required
-                placeholder="your@email.com"
+                placeholder={t.emailPlaceholder}
                 class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)]"
               />
             </div>
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">Message</label>
+              <label class="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">{t.messageLabel}</label>
               <textarea 
                 name="message"
                 value={formData.message}
                 onInput={handleChange}
                 required
                 rows="4"
-                placeholder="Tell us about your project..."
+                placeholder={t.messagePlaceholder}
                 class="w-full bg-brown/5 border border-brown/10 rounded-xl px-6 py-4 focus:outline-none focus:border-pastelGreen/50 transition-colors text-[var(--text-primary)] resize-none"
               ></textarea>
             </div>
@@ -120,7 +120,7 @@ export function Contact() {
                 : 'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-pastelGreen'
               }`}
             >
-              {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Message'}
+              {status === 'sending' ? t.sending : status === 'success' ? t.messageSent : t.sendMessage}
             </button>
           </form>
         </div>

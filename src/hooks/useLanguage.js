@@ -105,7 +105,15 @@ const translations = {
     whatsappLabel: 'WhatsApp',
     partnersTitle: 'Our Partners',
     partnerType: 'Partner',
-    readStory: 'Read Story'
+    readStory: 'Read Story',
+    nameLabel: 'Name',
+    namePlaceholder: 'Your name',
+    emailPlaceholder: 'your@email.com',
+    messageLabel: 'Message',
+    messagePlaceholder: 'Tell us about your project...',
+    sending: 'Sending...',
+    messageSent: 'Message Sent!',
+    sendMessage: 'Send Message'
   },
   IT: {
     home: 'Home',
@@ -201,7 +209,15 @@ const translations = {
     whatsappLabel: 'WhatsApp',
     partnersTitle: 'I Nostri Partner',
     partnerType: 'Partner',
-    readStory: 'Leggi la Storia'
+    readStory: 'Leggi la Storia',
+    nameLabel: 'Nome',
+    namePlaceholder: 'Il tuo nome',
+    emailPlaceholder: 'tua@email.com',
+    messageLabel: 'Messaggio',
+    messagePlaceholder: 'Parlaci del tuo progetto...',
+    sending: 'Invio...',
+    messageSent: 'Messaggio Inviato!',
+    sendMessage: 'Invia Messaggio'
   }
 };
 
