@@ -52,10 +52,10 @@ export function Home() {
             {t.heroDesc}
           </p>
           <div class={`pt-12 transition-all duration-1000 delay-[1200ms] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <button class="group relative px-12 py-4 bg-transparent text-white font-bold rounded-xl overflow-hidden border border-white/20 transition-all hover:border-pastelGreen">
+            <a href="#vision" class="group relative inline-block px-12 py-4 bg-transparent text-white font-bold rounded-full overflow-hidden border border-white/20 transition-all hover:border-pastelGreen">
               <span class="relative z-10 transition-colors group-hover:text-gray-900">{t.discover}</span>
               <div class="absolute inset-0 bg-pastelGreen translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -89,7 +89,7 @@ export function Home() {
         </section>
       )}
 
-      <section class="max-w-7xl mx-auto px-4">
+      <section id="vision" class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
           {[1, 2, 3].map((i) => (
             <div class="animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000 flex flex-col items-center text-center group" style={{ transitionDelay: `${i * 200}ms` }}>
